@@ -206,18 +206,18 @@ jobs:
           name: unsigned-millennium-windows
           path: D:/a/env/
 
-      - name: Sign Millennium Build
-        id: sign_artifact
-        uses: signpath/github-action-submit-signing-request@v1.1
-        with:
-          api-token: "${{ secrets.SIGNPATH_API_TOKEN }}"
-          organization-id: "f90532fc-e58c-4863-bc0d-72623720335f"
-          project-slug: "Millennium"
-          signing-policy-slug: "release-signing"
-          artifact-configuration-slug: "wsock32-hook"
-          github-artifact-id: "${{ steps.upload-unsigned-artifact.outputs.artifact-id }}"
-          output-artifact-directory: "signed-millennium"
-          wait-for-completion: true
+#      - name: Sign Millennium Build
+#        id: sign_artifact
+#        uses: signpath/github-action-submit-signing-request@v1.1
+#        with:
+#          api-token: "${{ secrets.SIGNPATH_API_TOKEN }}"
+#          organization-id: "f90532fc-e58c-4863-bc0d-72623720335f"
+#          project-slug: "Millennium"
+#          signing-policy-slug: "release-signing"
+#          artifact-configuration-slug: "wsock32-hook"
+#          github-artifact-id: "${{ steps.upload-unsigned-artifact.outputs.artifact-id }}"
+#          output-artifact-directory: "signed-millennium"
+#          wait-for-completion: true
 
 #      - name: Upload Signed Build Release
 #        id: upload-signed-artifact
