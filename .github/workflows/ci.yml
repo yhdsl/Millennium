@@ -219,13 +219,13 @@ jobs:
           output-artifact-directory: "signed-millennium"
           wait-for-completion: true
 
-      - name: Upload Signed Build Release
-        id: upload-signed-artifact
-        uses: actions/upload-artifact@v4
-        with:
-          include-hidden-files: true
-          name: signed-millennium-windows
-          path: D:\a\Millennium\Millennium\signed-millennium
+#      - name: Upload Signed Build Release
+#        id: upload-signed-artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          include-hidden-files: true
+#          name: signed-millennium-windows
+#          path: D:\a\Millennium\Millennium\signed-millennium
 
   build-linux:
     needs: prepare
