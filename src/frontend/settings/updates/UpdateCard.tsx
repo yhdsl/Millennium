@@ -119,7 +119,7 @@ export class UpdateCard extends Component<UpdateCardProps, UpdateCardState> {
 		}
 
 		return (
-			<DesktopTooltip toolTipContent={`Update ${toolTipText || update.name}`} direction="left">
+			<DesktopTooltip toolTipContent={`更新 ${toolTipText || update.name}`} direction="left">
 				<IconButton onClick={onUpdateClick} disabled={this.props.disabled}>
 					<IconsModule.Download key="download-icon" />
 				</IconButton>

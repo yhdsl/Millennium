@@ -118,7 +118,7 @@ export const MillenniumUpdateCard = ({ millenniumUpdates }: { millenniumUpdates:
 				progress={ctx.millenniumUpdateProgress.progress}
 				statusText={ctx.millenniumUpdateProgress.statusText}
 				onUpdateClick={StartUpdate}
-				toolTipText={'更新 Millennium 至 ' + millenniumUpdates?.newVersion?.tag_name}
+				toolTipText={'Millennium 至 ' + millenniumUpdates?.newVersion?.tag_name}
 				disabled={pluginSelf?.millenniumUpdates?.updateInProgress}
 			/>
 		</>
