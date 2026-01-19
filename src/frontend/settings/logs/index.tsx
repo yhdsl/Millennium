@@ -181,7 +181,7 @@ export class RenderLogViewer extends Component<{}, RenderLogViewerState> {
 		if (millenniumItems.length) {
 			components.push(
 				<DialogControlsSection>
-					<SettingsDialogSubHeader>Millennium Logs</SettingsDialogSubHeader>
+					<SettingsDialogSubHeader>Millennium 日志</SettingsDialogSubHeader>
 					<div className="MillenniumButtonsSection MillenniumLogsSection">{millenniumItems.map((log) => this.renderLogItemButton(log))}</div>
 				</DialogControlsSection>,
 			);
@@ -190,7 +190,7 @@ export class RenderLogViewer extends Component<{}, RenderLogViewerState> {
 		if (userPlugins.length) {
 			components.push(
 				<DialogControlsSection>
-					<SettingsDialogSubHeader>User Plugins</SettingsDialogSubHeader>
+					<SettingsDialogSubHeader>用户插件</SettingsDialogSubHeader>
 					<div className="MillenniumButtonsSection MillenniumLogsSection">{userPlugins.map((log) => this.renderLogItemButton(log))}</div>
 				</DialogControlsSection>,
 			);
@@ -208,19 +208,19 @@ export class RenderLogViewer extends Component<{}, RenderLogViewerState> {
 					<div className="MillenniumLogs_NavContainer">
 						<DialogButton onClick={() => this.setState({ selectedLog: null })} className={`MillenniumButton ${settingsClasses.SettingsDialogButton}`}>
 							<IconsModule.Carat direction="left" />
-							Back
+							返回
 						</DialogButton>
 						{/* @ts-ignore */}
-						<TextField placeholder="Search..." onChange={this.filterLogsBySearchQuery} />
+						<TextField placeholder="搜索..." onChange={this.filterLogsBySearchQuery} />
 					</div>
 
 					<div className="MillenniumLogs_TextControls">
 						<div className="MillenniumLogs_HeaderTextTypeContainer">
 							<div className="MillenniumLogs_HeaderTextTypeCount" data-type="error" data-count={errorCount}>
-								{errorCount} Errors
+								{errorCount} 个错误
 							</div>
 							<div className="MillenniumLogs_HeaderTextTypeCount" data-type="warning" data-count={warningCount}>
-								{warningCount} Warnings
+								{warningCount} 个警告
 							</div>
 						</div>
 

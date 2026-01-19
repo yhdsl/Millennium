@@ -175,7 +175,7 @@ const RenderComponents: React.FC<PluginEditorProps> = ({ plugin }) => {
 				return (
 					<Field
 						label={value.name}
-						description={<Markdown>{value?.desc ?? 'No description yet.'}</Markdown>}
+						description={<Markdown>{value?.desc ?? '暂无描述。'}</Markdown>}
 						key={index}
 						bottomSeparator={Object.keys(settings).length - 1 === index ? 'none' : 'standard'}
 						focusable

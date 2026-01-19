@@ -146,7 +146,7 @@ function RenderSettingsModal(_: any, retObj: any) {
 			visible: true,
 		},
 		{
-			name: 'Millennium Library Manager',
+			name: 'Millennium 库管理器',
 			onClick: () => {
 				useQuickAccessStore.getState().openQuickAccess();
 			},

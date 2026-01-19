@@ -47,15 +47,15 @@ function ThemeIdModal({ installer, modal, refetchDataCb }: ThemeIdModalProps) {
 
 	return (
 		<ConfirmModal
-			strTitle="Enter an ID"
+			strTitle="请输入主题 ID"
 			strDescription={
 				<>
-					Install a user theme from an ID. These ID's can be found after selecting a theme at <Utils.URLComponent url={THEMES_URL} />
+					使用插件 ID 安装主题。可以在 <Utils.URLComponent url={THEMES_URL} /> 这里浏览可用的主题并复制主题 ID
 					<br />
 					<br />
 					<TextField
 						// @ts-ignore
-						placeholder={'Enter an ID here...'}
+						placeholder={'在这里输入主题 ID...'}
 						value={installID}
 						onChange={(e) => setInstallID(e.target.value)}
 					/>
@@ -69,7 +69,7 @@ function ThemeIdModal({ installer, modal, refetchDataCb }: ThemeIdModalProps) {
 			onCancel={() => {
 				modal?.Close();
 			}}
-			strOKButtonText="Download & Install"
+			strOKButtonText="下载并安装"
 		/>
 	);
 }

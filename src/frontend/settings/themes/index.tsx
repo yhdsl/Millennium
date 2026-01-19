@@ -134,7 +134,7 @@ export class ThemeViewModal extends Component<{}, ThemeViewModalState> {
 
 		if (!this.state.themes || !this.state.themes.length) {
 			return (
-				<Placeholder icon={<FaPaintRoller className="SVGIcon_Button" />} header="No themes found" body="It appears you don't have any themes yet!">
+				<Placeholder icon={<FaPaintRoller className="SVGIcon_Button" />} header="未找到主题" body="你似乎还没有安装任何主题！">
 					<DialogButton className={joinClassNames(settingsClasses.SettingsDialogButton, 'MillenniumPlaceholder_Button')} onClick={this.InstallPluginMenu.bind(this)}>
 						<FaStore />
 						{locale.optionInstallTheme}

@@ -175,7 +175,7 @@ export class RenderThemeEditor extends React.Component<ThemeEditorProps> {
 		return (
 			<Field
 				label={condition}
-				description={<BBCodeParser text={value?.description ?? 'No description yet.'} />}
+				description={<BBCodeParser text={value?.description ?? '暂无描述。'} />}
 				className={condition}
 				key={condition}
 				bottomSeparator={isLastItem ? 'none' : 'standard'}
@@ -218,7 +218,7 @@ export class RenderThemeEditor extends React.Component<ThemeEditorProps> {
 			<Field key={index} label={color?.name ?? color?.color} description={<BBCodeParser text={color?.description ?? 'No description yet.'} />}>
 				{colorState != color.defaultColor && (
 					<DialogButton className={settingsClasses.SettingsDialogButton} onClick={resetColor}>
-						Reset
+						重置
 					</DialogButton>
 				)}
 				<input type="color" className="MillenniumColorPicker" value={colorState} onChange={(event) => debounceColorUpdate(event.target.value)} />

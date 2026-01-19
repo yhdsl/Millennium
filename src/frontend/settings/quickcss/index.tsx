@@ -58,7 +58,7 @@ export const MillenniumQuickCssEditor = () => {
 	};
 
 	const windowConfig = {
-		title: 'Quick CSS Editor',
+		title: '快速 CSS 编辑器',
 		body_class: 'fullheight ModalDialogBody DesktopUI',
 		html_class: 'client_chat_frame fullheight ModalDialogPopup',
 		popup_class: 'fullheight MillenniumQuickCss_Popup',
@@ -143,7 +143,7 @@ export const MillenniumQuickCssEditor = () => {
 					)}
 				</div>
 				<style>{`.cm-editor { height: 100%; } .TitleBar.title-area { height: 32px !important; } .MillenniumQuickCss_Title { position: absolute; top: 5px; left: 10px; color: lightgrey; font-weight: 500; }`}</style>
-				<div className="MillenniumQuickCss_Title">Quick CSS Editor</div>
+				<div className="MillenniumQuickCss_Title">快速 CSS 编辑器</div>
 				<div
 					ref={containerRef}
 					style={{ height: '-webkit-fill-available', marginTop: '32px', width: '100%', position: 'absolute', top: 0, left: 0 }}

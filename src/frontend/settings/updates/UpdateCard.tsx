@@ -163,7 +163,7 @@ export class UpdateCard extends Component<UpdateCardProps, UpdateCardState> {
 					disabled={true}
 				>
 					<IconsModule.Checkmark style={{ height: '16px', width: '16px' }} />
-					{'Complete! Pending restart.'}
+					{'已完成！重启后完成。'}
 				</DialogButton>
 			);
 		}

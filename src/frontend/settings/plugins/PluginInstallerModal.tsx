@@ -46,15 +46,15 @@ function PluginIdModal({ installer, modal, refetchDataCb }: PluginIdModalProps) 
 
 	return (
 		<ConfirmModal
-			strTitle="Enter an ID"
+			strTitle="请输入插件 ID"
 			strDescription={
 				<>
-					Install a user plugin from an ID. These ID's can be found after selecting a plugin at <Utils.URLComponent url={PLUGINS_URL} />
+					使用插件 ID 安装用户插件。可以在 <Utils.URLComponent url={PLUGINS_URL} /> 这里浏览可用的插件并复制插件 ID
 					<br />
 					<br />
 					<TextField
 						// @ts-ignore
-						placeholder={'Enter an ID here...'}
+						placeholder={'在这里输入插件 ID...'}
 						value={installID}
 						onChange={(e) => setInstallID(e.target.value)}
 					/>
@@ -68,7 +68,7 @@ function PluginIdModal({ installer, modal, refetchDataCb }: PluginIdModalProps) 
 			onCancel={() => {
 				modal?.Close();
 			}}
-			strOKButtonText="Download & Install"
+			strOKButtonText="下载并安装"
 		/>
 	);
 }

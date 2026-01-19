@@ -47,7 +47,7 @@ export const TitleView = () => {
 	if (!focusedItem) {
 		return (
 			<Focusable className={joinClassNames('MillenniumDesktopSidebar_Title', quickAccessMenuClasses.Title)}>
-				<div>Library Settings</div>
+				<div>库设置</div>
 				<IconButton onClick={onSettingsClick} style={{ marginLeft: 'auto' }}>
 					<BsGearFill />
 				</IconButton>

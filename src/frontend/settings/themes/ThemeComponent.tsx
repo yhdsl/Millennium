@@ -125,7 +125,7 @@ export class ThemeItemComponent extends Component<ThemeItemComponentProps, Theme
 	async uninstallTheme() {
 		const { theme, fetchThemes } = this.props;
 
-		const shouldUninstall = await Utils.ShowMessageBox(`Are you sure you want to uninstall ${theme.data.name}?`, 'Heads up!');
+		const shouldUninstall = await Utils.ShowMessageBox(`确定要卸载 ${theme.data.name} 吗？`, '小心！');
 		if (!shouldUninstall) return;
 
 		PyUninstallTheme({ owner: theme.data.github.owner, repo: theme.data.github.repo_name }).then(() => {
@@ -149,10 +149,10 @@ export class ThemeItemComponent extends Component<ThemeItemComponentProps, Theme
 				<Separator />
 				{/* {isActive ? <MenuItem onSelected={onUseDefault}>Disable</MenuItem> : <MenuItem onSelected={() => onChangeTheme(theme)}>Set as active</MenuItem>} */}
 				<MenuItem onSelected={this.openThemeSettings.bind(this)} disabled={!this.bIsThemeConfigurable}>
-					Configure
+					配置
 				</MenuItem>
-				<MenuItem onSelected={this.openThemeFolder.bind(this)}>Browse local files</MenuItem>
-				<MenuItem onSelected={this.uninstallTheme.bind(this)}>Uninstall</MenuItem>
+				<MenuItem onSelected={this.openThemeFolder.bind(this)}>浏览本地文件</MenuItem>
+				<MenuItem onSelected={this.uninstallTheme.bind(this)}>卸载</MenuItem>
 			</Menu>,
 			event.currentTarget ?? window,
 		);

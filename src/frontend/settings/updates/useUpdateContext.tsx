@@ -81,7 +81,7 @@ export class UpdateContextProvider extends React.Component<UpdateContextProvider
 			updatingThemes: [],
 			updatingPlugins: [],
 			isUpdatingMillennium: false,
-			millenniumUpdateProgress: { statusText: 'Starting updater...', progress: 0, isComplete: false },
+			millenniumUpdateProgress: { statusText: '开始更新...', progress: 0, isComplete: false },
 			themeUpdates: null,
 			pluginUpdates: null,
 			hasReceivedUpdates: false,

@@ -69,13 +69,13 @@ export class RenderPluginComponent extends Component<PluginComponentProps> {
 	async uninstallPlugin() {
 		const { plugin, refetchPlugins } = this.props;
 
-		const shouldUninstall = await Utils.ShowMessageBox(`Are you sure you want to uninstall ${plugin.data.common_name}?`, 'Heads up!');
+		const shouldUninstall = await Utils.ShowMessageBox(`确定要卸载 ${plugin.data.common_name} 吗？`, '小心！');
 		if (!shouldUninstall) return;
 
 		const success = await PyUninstallPlugin({ pluginName: plugin.data.name });
 
 		if (success == false) {
-			Utils.ShowMessageBox(`Failed to uninstall ${plugin.data.common_name}. Check the logs tab for more details.`, 'Whoops', {
+			Utils.ShowMessageBox(`卸载 ${plugin.data.common_name} 时失败。请查看日志以了解更多选项。`, '哎呀', {
 				bAlertDialog: true,
 			});
 		}
@@ -103,14 +103,14 @@ export class RenderPluginComponent extends Component<PluginComponentProps> {
 					{plugin.data.common_name}
 				</MenuItem>
 				<Separator />
-				<MenuItem onSelected={() => {}}>Reload</MenuItem>
+				<MenuItem onSelected={() => {}}>重新加载</MenuItem>
 				<DesktopTooltip toolTipContent={reason} direction="left">
 					<MenuItem onSelected={this.openPluginSettings.bind(this)} disabled={!isPluginConfigurable}>
-						Configure
+						配置
 					</MenuItem>
 				</DesktopTooltip>
-				<MenuItem onSelected={this.uninstallPlugin.bind(this)}>Uninstall</MenuItem>
-				<MenuItem onSelected={Utils.BrowseLocalFolder.bind(null, plugin.path)}>Browse local files</MenuItem>
+				<MenuItem onSelected={this.uninstallPlugin.bind(this)}>卸载</MenuItem>
+				<MenuItem onSelected={Utils.BrowseLocalFolder.bind(null, plugin.path)}>浏览本地文件</MenuItem>
 			</Menu>,
 			e.currentTarget ?? window,
 		);
@@ -130,7 +130,7 @@ export class RenderPluginComponent extends Component<PluginComponentProps> {
 		return {
 			type: status.type,
 			content: (
-				<DesktopTooltip toolTipContent={`${plugin?.data?.common_name} ${status.message}. Please check the logs tab for more details.`} direction="top">
+				<DesktopTooltip toolTipContent={`${plugin?.data?.common_name} ${status.message}。请查看日志以了解更多选项。`} direction="top">
 					<IconsModule.ExclamationPoint color={status.color} />
 				</DesktopTooltip>
 			),

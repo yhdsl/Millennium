@@ -74,9 +74,9 @@ export const MillenniumUpdateCard = ({ millenniumUpdates }: { millenniumUpdates:
 	const StartUpdateLinux = () => {
 		showModal(
 			<ConfirmModal
-				strTitle={'Update Millennium'}
+				strTitle={'更新 Millennium'}
 				strDescription={
-					<Markdown>{`To update Millennium to ${millenniumUpdates?.newVersion?.tag_name}, run the following command in your terminal:\n\n\`${pluginSelf.millenniumLinuxUpdateScript}\``}</Markdown>
+					<Markdown>{`要将 Millennium 更新至 ${millenniumUpdates?.newVersion?.tag_name}，请在终端中运行以下命令：\n\n\`${pluginSelf.millenniumLinuxUpdateScript}\``}</Markdown>
 				}
 				bAlertDialog={true}
 			/>,
@@ -118,7 +118,7 @@ export const MillenniumUpdateCard = ({ millenniumUpdates }: { millenniumUpdates:
 				progress={ctx.millenniumUpdateProgress.progress}
 				statusText={ctx.millenniumUpdateProgress.statusText}
 				onUpdateClick={StartUpdate}
-				toolTipText={'Millennium to ' + millenniumUpdates?.newVersion?.tag_name}
+				toolTipText={'更新 Millennium 至 ' + millenniumUpdates?.newVersion?.tag_name}
 				disabled={pluginSelf?.millenniumUpdates?.updateInProgress}
 			/>
 		</>

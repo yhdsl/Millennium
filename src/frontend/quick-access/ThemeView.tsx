@@ -86,7 +86,7 @@ export const ThemeSelectorView = () => {
 
 	return (
 		<PanelSection>
-			<h4>Theme Settings</h4>
+			<h4>主题设置</h4>
 			{(themes as ThemeItem[])?.map((theme) => (
 				<RenderThemeViews key={theme.native} theme={theme} />
 			))}

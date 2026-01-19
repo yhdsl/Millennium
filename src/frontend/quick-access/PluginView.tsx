@@ -93,7 +93,7 @@ export const RenderPluginView = () => {
 		return (
 			<PanelSection>
 				<PanelSectionRow>
-					Failed to find a renderer for <b>{focusedItem?.data?.name}</b>. Please check if the plugin is loaded correctly.
+					无法找到 <b>{focusedItem?.data?.name}</b> 的渲染器。请检查插件是否正确加载。
 				</PanelSectionRow>
 			</PanelSection>
 		);
@@ -121,7 +121,7 @@ export const PluginSelectorView = () => {
 
 	return (
 		<PanelSection>
-			<h4>Plugin Settings</h4>
+			<h4>插件设置</h4>
 			{plugins?.map((plugin) => (
 				<RenderPluginViews
 					plugins={plugins}
