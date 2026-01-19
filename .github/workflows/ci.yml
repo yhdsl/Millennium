@@ -8,6 +8,9 @@ on:
         required: true
         default: "no"
 
+env:
+  VERSION: "2.34.0"
+
 concurrency:
   group: ci-build
   cancel-in-progress: true
@@ -61,7 +64,7 @@ jobs:
       - name: Update Millennium Version
         run: |
           echo "# current version of millennium" > ./scripts/version
-          echo "v${{ needs.prepare.outputs.version }}" >> ./scripts/version
+          echo "v${{ env.VERSION }}" >> ./scripts/version
 
       - name: Build Millennium Plugin Backend
         run: |
@@ -245,7 +248,7 @@ jobs:
       - name: Update Millennium Version
         run: |
           echo "# current version of millennium" > ./scripts/version
-          echo "v${{ needs.prepare.outputs.version }}" >> ./scripts/version
+          echo "v${{ env.VERSION }}" >> ./scripts/version
 
       - name: Install Dependencies
         run: |
@@ -354,14 +357,14 @@ jobs:
       - name: Update Millennium Version
         run: |
           echo "# current version of millennium" > ./scripts/version
-          echo "v${{ needs.prepare.outputs.version }}" >> ./scripts/version
+          echo "v${{ env.VERSION }}" >> ./scripts/version
 
       - name: Release Millennium
         run: |
           mkdir -p ./artifacts/release
 
-          linux_release_name="./artifacts/release/millennium-v${{ needs.prepare.outputs.version }}-linux-x86_64"
-          win32_name="millennium-v${{ needs.prepare.outputs.version }}-windows-x86_64"
+          linux_release_name="./artifacts/release/millennium-v${{ env.VERSION }}-linux-x86_64"
+          win32_name="millennium-v${{ env.VERSION }}-windows-x86_64"
           win32_release_name="./artifacts/release/${win32_name}"
 
           # setup windows release
