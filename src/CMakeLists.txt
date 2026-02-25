@@ -1,30 +1,10 @@
 cmake_minimum_required(VERSION 3.21)
 
-if (MILLENNIUM_32BIT STREQUAL "ON")
-    add_compile_definitions(MILLENNIUM_32BIT)
-    message(STATUS "Compiling as 32-bit")
-else()
-    add_compile_definitions(MILLENNIUM_64BIT)
-    message(STATUS "Compiling as 64-bit")
-endif()
-
-if(WIN32)
-    set(BUILD_PREFIX "")
-    set(BUILD_NAME "millennium")
-    set(BUILD_SUFFIX ".dll")
-else() # Linux build name
-    set(BUILD_PREFIX "lib")
-    set(BUILD_NAME "millennium")
-    set(BUILD_SUFFIX "_x86.so")
-endif()
-
-set(BUILD_FULLNAME "${BUILD_PREFIX}${BUILD_NAME}${BUILD_SUFFIX}")
-
 set(VERSION_COMPANY      "Steam Homebrew")
 set(VERSION_COPYRIGHT    "Steam Homebrew 2025")
 set(VERSION_TRADEMARK1   "All Rights Reserved")
 set(VERSION_DESCRIPTION  "A plugin loader for the modern Steam Client")
-set(VERSION_FILENAME     "${BUILD_FULLNAME}")
+set(VERSION_FILENAME     "${MILLENNIUM_OUTPUT_NAME}")
 set(VERSION_PRODUCT      "Millennium")
 
 set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard to use" FORCE)
@@ -47,6 +27,8 @@ add_compile_definitions(
     "ASIO_HAS_STD_INVOKE_RESULT"
     "FMT_HEADER_ONLY"
     "CURL_STATICLIB"
+    __HOOK_HELPER_OUTPUT_ABSPATH__="$<TARGET_FILE:hhx64>"
+    __DBG_MILLENNIUM_OUTPUT_DIR__="$<TARGET_FILE_DIR:Millennium>"
 )
 
 if (WIN32)
@@ -82,7 +64,7 @@ set(SOURCE_FILES
     core/backend_init.cc
     core/backend_mgr.cc
     core/core_ipc.cc
-    core/http_hook.cc
+    core/http_hooks.cc
     core/init.cc
     core/lifecycle.cc
     core/millennium_api.cc
@@ -104,7 +86,7 @@ set(SOURCE_FILES
     hhx64/smem.cc
     sys/cfg.cc
     sys/env.cc
-    sys/log.cc
+    sys/logger.cc
     sys/sysfs.cc
     main.cc
 )
@@ -180,18 +162,32 @@ elseif(APPLE)
     set(MILLENNIUM__PYTHON_ENV "${python_path}")
     set(LIBPYTHON_RUNTIME_PATH "${python_path}/lib/libpython3.11.dylib")
     message(STATUS "[Millennium] Using python library ${LIBPYTHON_RUNTIME_PATH}")
+elseif(DISTRO_NIX)
+    set(default_python_path "${NIX_PYTHON}")
+    set(MILLENNIUM__PYTHON_ENV "${NIX_PYTHON}")
+    set(LIBPYTHON_RUNTIME_PATH "${NIX_PYTHON_LIB}")
+
+    include_directories("${NIX_PYTHON}/include/python3.11/")
+    detect_aur_helper(MILLENNIUM__UPDATE_SCRIPT_PROMPT)
+    set(MILLENNIUM__UPDATE_SCRIPT_PROMPT "echo {}")
+
+    message(STATUS "[Millennium] Using python library ${LIBPYTHON_RUNTIME_PATH}")
 else()
     set(default_python_path "/opt/python-i686-3.11.8")
     set(MILLENNIUM__PYTHON_ENV "${default_python_path}")
     set(LIBPYTHON_RUNTIME_PATH "${default_python_path}/lib/libpython-3.11.8.so")
 
     if(DISTRO_ARCH OR LSB_RELEASE_ID_SHORT STREQUAL "Arch")
-        include_directories("${default_python_path}/include/python3.11/")
+        include_directories("${MILLENNIUM_BASE}/src/vendor/python/posix")
         detect_aur_helper(MILLENNIUM__UPDATE_SCRIPT_PROMPT)
+    elseif(NIX_BUILD OR LSB_RELEASE_ID_SHORT STREQUAL "NixOS")
+        include_directories("${default_python_path}/include/python3.11/")
+        set(MILLENNIUM__UPDATE_SCRIPT_PROMPT "nix flake update millennium")
     else()
         include_directories("${MILLENNIUM_BASE}/src/vendor/python/posix")
-        set(MILLENNIUM__UPDATE_SCRIPT_PROMPT "curl -fsSL 'https://raw.githubusercontent.com/SteamClientHomebrew/Millennium/refs/heads/main/scripts/install.sh' | sh")
+        set(MILLENNIUM__UPDATE_SCRIPT_PROMPT "curl -fsSL 'https://steambrew.app/install.sh' | bash")
     endif()
+    message(STATUS "[Millennium] Setting MILLENNIUM__UPDATE_SCRIPT_PROMPT to: ${MILLENNIUM__UPDATE_SCRIPT_PROMPT}")
     message(STATUS "[Millennium] Using python library ${LIBPYTHON_RUNTIME_PATH}")
 endif()
 
@@ -200,6 +196,7 @@ include(${MILLENNIUM_BASE}/scripts/cmake/generate_virtfs.cmake)
 
 if(WIN32)
     add_library(Millennium SHARED "${SOURCE_FILES}")
+    target_compile_definitions(Millennium PRIVATE MILLENNIUM__UPDATE_SCRIPT_PROMPT="https://github.com/SteamClientHomebrew/Installer/releases/latest/download/MillenniumInstaller-Windows.exe")
 elseif(UNIX)
     if(APPLE)
         add_executable(Millennium "${SOURCE_FILES}")
@@ -211,14 +208,18 @@ elseif(UNIX)
     target_compile_definitions(Millennium PRIVATE MILLENNIUM__PYTHON_ENV="${MILLENNIUM__PYTHON_ENV}")
     target_compile_definitions(Millennium PRIVATE LIBPYTHON_RUNTIME_PATH="${LIBPYTHON_RUNTIME_PATH}")
     target_compile_definitions(Millennium PRIVATE MILLENNIUM__UPDATE_SCRIPT_PROMPT="${MILLENNIUM__UPDATE_SCRIPT_PROMPT}")
+    if(DISTRO_NIX)
+        target_compile_definitions(Millennium PRIVATE DISTRO_NIX)
+    endif()
 endif()
 
 find_steam_path(Millennium)
 target_include_directories(Millennium SYSTEM PRIVATE ${websocketpp_SOURCE_DIR})
-
-set_target_properties(Millennium PROPERTIES PREFIX      "${BUILD_PREFIX}")
-set_target_properties(Millennium PROPERTIES OUTPUT_NAME "${BUILD_NAME}"  )
-set_target_properties(Millennium PROPERTIES SUFFIX      "${BUILD_SUFFIX}")
+set_target_properties(Millennium PROPERTIES
+    PREFIX ""
+    OUTPUT_NAME "${MILLENNIUM_OUTPUT_NAME}"
+    SUFFIX ""
+)
 
 if(WIN32)
     set_target_properties(Millennium PROPERTIES NO_EXPORT TRUE)
@@ -254,6 +255,8 @@ elseif(UNIX)
 
     if(APPLE)
         target_link_libraries(Millennium "$ENV{HOME}/.pyenv/versions/3.11.8/lib/libpython3.11.dylib")
+    elseif(DISTRO_NIX)
+        target_link_libraries(Millennium "${NIX_PYTHON_LIB}")
     else()
         target_link_libraries(Millennium "/opt/python-i686-3.11.8/lib/libpython-3.11.8.so")
     endif()
