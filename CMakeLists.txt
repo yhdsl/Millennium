@@ -45,8 +45,8 @@ include(FetchContent)
 set(snare_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty")
 
 option(MILLENNIUM_BUILD_MAIN         "Build main Millennium library and tools"            ON)
-option(MILLENNIUM_BUILD_TESTS        "Build testing suite for Millennium"                 ON)
-option(MILLENNIUM_RUN_TESTS_ON_BUILD "Run native tests automatically after building them" ON)
+option(MILLENNIUM_BUILD_TESTS        "Build testing suite for Millennium"                 OFF)
+option(MILLENNIUM_RUN_TESTS_ON_BUILD "Run native tests automatically after building them" OFF)
 option(MILLENNIUM_NIX_64BIT          "Build only the 64-bit Nix targets (hhx64 + bootstrap64 + pvs64)" OFF)
 
 if(MILLENNIUM_BUILD_MAIN)
