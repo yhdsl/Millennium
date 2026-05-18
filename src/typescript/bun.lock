@@ -110,13 +110,6 @@
         "@types/react-router": "5.1.20",
       },
     },
-    "sdk/packages/test": {
-      "name": "@steambrew/test",
-      "version": "0.1.0",
-      "dependencies": {
-        "@happy-dom/global-registrator": "^15.11.7",
-        "@steambrew/api": "workspace:*",
-      },
       "devDependencies": {
         "@types/bun": "^1.1.0",
         "typescript": "^5.8.3",
@@ -583,8 +576,6 @@
     "@steambrew/cdp-isolated-ctx": ["@steambrew/cdp-isolated-ctx@workspace:sdk/packages/cdp-isolated-ctx"],
 
     "@steambrew/client": ["@steambrew/client@workspace:sdk/packages/client"],
-
-    "@steambrew/test": ["@steambrew/test@workspace:sdk/packages/test"],
 
     "@steambrew/ttc": ["@steambrew/ttc@workspace:ttc"],
 
